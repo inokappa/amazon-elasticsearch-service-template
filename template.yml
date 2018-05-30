@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  EsDomainEnvironment:
+    Type: String
+  EsDomainNamePrefix:
+    Type: String
+  EsInstanceType:
+    Type: String
+  EsInstanceCount:
+    Type: Number
+  EsZoneAwareness:
+    Type: String
+  EsVersion:
+    Type: String
+  EsStorageVolumeSize:
+    Type: Number
+  EsSecurityId:
+    Type: String
+  EsSubnetIds:
+    Type: CommaDelimitedList
+Resources:
+  ElasticsearchDomain:
+    Type: AWS::Elasticsearch::Domain
+    Properties:
+      AccessPolicies:
+        Statement:
+        - Action:
+             - es:*
+          Effect: Allow
+          Principal:
+            AWS:
+              - '*'
+          Resource:
+            Fn::Join:
+              - ""
+              - - "arn:aws:es:"
+                - Ref: AWS::Region
+                - ":"
+                - Ref: AWS::AccountId
+                - ":domain/"
+                - !Ref EsDomainNamePrefix
+                - "-"
+                - !Ref EsDomainEnvironment
+                - "/*"
+          Sid: ""
+        Version: "2012-10-17"
+      AdvancedOptions:
+        rest.action.multi.allow_explicit_index: true
+      DomainName:
+            Fn::Join:
+              - ""
+              - - !Ref EsDomainNamePrefix
+                - "-"
+                - !Ref EsDomainEnvironment
+      EBSOptions:
+        EBSEnabled: true
+        Iops: 0
+        VolumeSize: !Ref EsStorageVolumeSize
+        VolumeType: gp2
+      ElasticsearchClusterConfig:
+        DedicatedMasterEnabled: false
+        InstanceCount: !Ref EsInstanceCount
+        InstanceType: !Ref EsInstanceType
+        ZoneAwarenessEnabled: !Ref EsZoneAwareness
+      ElasticsearchVersion: !Ref EsVersion
+      SnapshotOptions:
+        AutomatedSnapshotStartHour: "0"
+      VPCOptions:
+        SecurityGroupIds:
+          - !Ref EsSecurityId
+        SubnetIds: !Ref EsSubnetIds

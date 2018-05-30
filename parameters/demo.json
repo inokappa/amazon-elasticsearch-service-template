@@ -1,0 +1,38 @@
+[
+  {
+    "ParameterKey": "EsDomainEnvironment",
+    "ParameterValue": "demo"
+  },
+  {
+    "ParameterKey": "EsDomainNamePrefix",
+    "ParameterValue": "oreno-elasticsearch"
+  },
+  {
+    "ParameterKey": "EsInstanceType",
+    "ParameterValue": "t2.small.elasticsearch"
+  },
+  {
+    "ParameterKey": "EsInstanceCount",
+    "ParameterValue": "1"
+  },
+  {
+    "ParameterKey": "EsVersion",
+    "ParameterValue": "6.2"
+  },
+  {
+    "ParameterKey": "EsZoneAwareness",
+    "ParameterValue": "false"
+  },
+  {
+    "ParameterKey": "EsStorageVolumeSize",
+    "ParameterValue": "10"
+  },
+  {
+    "ParameterKey": "EsSecurityId",
+    "ParameterValue": "sg-xxxxxxxx"
+  },
+  {
+    "ParameterKey": "EsSubnetIds",
+    "ParameterValue": "subnet-xxxxxxx1, subnet-xxxxxxx2"
+  }
+]

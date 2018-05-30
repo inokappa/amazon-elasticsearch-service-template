@@ -1,0 +1,4 @@
+.bundle
+.envrc
+vendor/
+Gemfile.lock
